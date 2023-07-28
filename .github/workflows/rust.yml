@@ -39,7 +39,7 @@ jobs:
           ${{ runner.os }}-cargo-target
           
     - name: Build
-      run: cargo build --verbose --release
+      run: cargo +nightly build --verbose --release
           
     - name: Upload the artifact (macOS)
       uses: actions/upload-artifact@v3.1.2
