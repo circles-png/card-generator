@@ -45,5 +45,5 @@ jobs:
       uses: actions/upload-artifact@v3.1.2
       with:
         name: card-generator-${{ matrix.os }}
-        path: ./target/release/card-generator
+        path: ./target/release/card-generator${{matrix.os == 'windows-latest' && '.exe' || ''}}
         if-no-files-found: error
