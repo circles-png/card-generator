@@ -17,6 +17,9 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
     - uses: actions/checkout@v3
+    - uses: actions-rs/toolchain@v1
+      with:
+        toolchain: nightly
     - name: Cache `.cargo`
       uses: actions/cache@v3.2.6
       with:
@@ -41,6 +44,6 @@ jobs:
     - name: Upload the artifact (macOS)
       uses: actions/upload-artifact@v3.1.2
       with:
-        name: card-generator
+        name: card-generator-${{ matrix.os }}
         path: ./target/release/card-generator
         if-no-files-found: error
