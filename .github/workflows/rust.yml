@@ -11,13 +11,14 @@ env:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-13]
+    runs-on: ${{ matrix.os }}
     steps:
     - uses: actions/checkout@v3
-    - name: Build
-      run: cargo build --verbose --release
     - name: Cache `.cargo`
-      uses: actions/cache@v1.2.1
+      uses: actions/cache@v3.2.6
       with:
         path: ~/.cargo
         key: ${{ runner.os }}-cargo-${{ hashFiles('Cargo.toml') }}
@@ -26,13 +27,16 @@ jobs:
           ${{ runner.os }}-cargo
 
     - name: Cache `target`
-      uses: actions/cache@v1.2.1
+      uses: actions/cache@v3.2.6
       with:
         path: target
         key: ${{ runner.os }}-cargo-target-${{ hashFiles('Cargo.toml') }}
         restore-keys: |
           ${{ runner.os }}-cargo-target-${{ hashFiles('Cargo.toml') }}
           ${{ runner.os }}-cargo-target
+          
+    - name: Build
+      run: cargo build --verbose --release
           
     - name: Upload the artifact (macOS)
       uses: actions/upload-artifact@v3.1.2
