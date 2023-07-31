@@ -14,10 +14,10 @@ enum Colour {
     Red,
 }
 
-const PRIMARY_FONT_SIZE: f32 = 90.;
-const FOOTER_FONT_SIZE: f32 = 20.;
+const PRIMARY_FONT_SIZE: f32 = 100.;
+const FOOTER_FONT_SIZE: f32 = 25.;
 const MARGIN: f32 = 32.;
-const CARD_SIZE: (i32, i32) = (400, 600);
+const CARD_SIZE: (i32, i32) = (635, 880);
 
 fn main() {
     let _ = remove_dir_all("cards");
@@ -35,7 +35,7 @@ fn main() {
     };
     let font_face = Face::from_slice(font_bytes.as_slice(), 0).unwrap();
     let measure = TTFParserMeasure::new(&font_face);
-    let word_wrap = &WhiteSpaceWordWrap::new(7000, &measure);
+    let word_wrap = &WhiteSpaceWordWrap::new(12000, &measure);
     let (white_cards, red_cards, footer_text) = {
         let raw = fs::read_to_string("text").unwrap();
         assert_eq!(raw.split("\n\n").count(), 3);
